@@ -1,0 +1,64 @@
+﻿@model TaskCFT.Models.ViewModels.WorkRequestVM.WorkRequestDataVM
+
+@{
+    ViewData["Title"] = "Создать";
+    var nowDate = DateTime.Now.Date;
+    var nowDateStr = $"{nowDate.Year}-{nowDate.Month}-{nowDate.Day}";
+}
+
+<h1>Создать</h1>
+
+<h4>Запрос</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" value=""></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label" ></label>
+                <input id="date" asp-for="EndDate" class="form-control" value="@nowDateStr" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationId" class="control-label"></label>
+
+                <input id="appId" asp-for="ApplicationId" type="hidden" value=""/>
+                <input class="form-control" type="search" id="applicationInput" oninput="setIdToInput()" list="applicationsList">
+                <datalist id="applicationsList">
+                    @foreach(var item in Model.ApplicationsList)
+                    {
+                        <option label="@item.Value" value="@item.Text" ></option>
+                    }
+                </datalist>
+                
+                <span asp-validation-for="ApplicationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-outline-dark" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-outline-dark">Назад</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

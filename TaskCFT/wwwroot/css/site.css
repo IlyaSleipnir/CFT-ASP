@@ -1,0 +1,47 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  background-color: whitesmoke;
+}
+
+header, footer {
+    background: radial-gradient(grey, dimgrey);
+}
+
+header a, footer a, footer div {
+    color: whitesmoke;
+}
+
+body a, body input {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.page_number{
+    margin-left: 20px;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+dd{
+    overflow-wrap: break-word;
+}
+

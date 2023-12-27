@@ -1,0 +1,106 @@
+﻿@using TaskCFT.Data;
+@model PaginatedList<TaskCFT.Models.ViewModels.WorkRequestVM.WorkRequestListVM>
+
+@{
+    ViewData["Title"] = "Заявки";
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var pageSize = 10;
+}
+
+<h1>Заявки</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-dark">Создать</a>
+</p>
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="30%">
+                    @Html.DisplayNameFor(model => model[0].Name)
+                </th>
+                <th width="15%" >
+                    @Html.DisplayNameFor(model => model[0].EndDate)
+                </th>
+                <th width="20%">
+                    @Html.DisplayNameFor(model => model[0].Email)
+                </th>
+                <th width="15%">
+                    @Html.DisplayNameFor(model => model[0].ApplicationName)
+                </th>
+                <th width="20%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ApplicationName)
+                    </td>
+                    <td align="right">
+                        <span>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm">Изменить</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm">Детали</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Удалить</a>
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    if (ViewBag.Count > pageSize)
+    {
+        <p class="page_number">@((Model.PageIndex * pageSize) < ViewBag.Count ? (Model.PageIndex * pageSize) : ViewBag.Count) из @ViewBag.Count</p>
+        <span class="page_number">
+            <a asp-action="Index"
+               asp-route-page="@(Model.PageIndex - 1)"
+               asp-route-pageSize="@pageSize"
+               class="btn btn-default @prevDisabled">
+                &lt
+            </a>
+            @Model.PageIndex
+            <a asp-action="Index"
+               asp-route-page="@(Model.PageIndex + 1)"
+               asp-route-pageSize="@pageSize"
+               class="btn btn-default @nextDisabled">
+                >
+            </a>
+        </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+}
+else
+{
+    <h3 class="text-center">Данные отсутсвуют</h3>
+}
